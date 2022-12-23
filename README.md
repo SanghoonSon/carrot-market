@@ -12,7 +12,7 @@
 * K6
 
 ## ✅ 프로젝트 구조
-![img.png](img.png)
+![architecture](./docs/architecture.png)
 
 ## ✅ 화면 설계
 - 업데이트 예정
