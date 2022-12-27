@@ -3,8 +3,11 @@ spring:
     active: test
     group:
       local:
+        - view
         - mysql
       test:
+        - view
         - h2
       prod:
+        - view
         - mysql
