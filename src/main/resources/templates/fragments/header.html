@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:fragment="headerFragment">
+<header class="p-3 mb-3 border-bottom">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="#" class="nav-link px-2 link-secondary">당근마켓</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark">중고거래</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark">동네가게</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark">알바</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark">부동산 직거래</a></li>
+            </ul>
+
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <form class="col-12 col-lg-7 mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="search" class="form-control" placeholder="물품이나 동네를 검색해보세요" aria-label="Search">
+                </form>
+                <a class="btn btn-sm btn-outline-secondary" th:href="@{/members/login}">로그인</a>
+            </div>
+
+            <!--<div class="dropdown text-end">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small" style="">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </div>-->
+        </div>
+    </div>
+</header>
+</html>
