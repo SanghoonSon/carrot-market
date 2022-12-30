@@ -1,17 +1,26 @@
 package com.carrot.market.member.domain
 
+import com.carrot.market.base.DatabaseCleaner
+import com.carrot.market.config.SpyJpaEntityRepositoryTest
 import com.carrot.market.fixture.createMember
 import io.kotest.core.spec.style.ExpectSpec
 import io.kotest.extensions.spring.SpringTestExtension
 import io.kotest.extensions.spring.SpringTestLifecycleMode
 import io.kotest.matchers.shouldBe
-import support.test.JpaEntityRepositoryTest
+import org.junit.jupiter.api.DisplayName
 
-@JpaEntityRepositoryTest
+
+@DisplayName("회원 도메인 레포지토리 테스트")
+@SpyJpaEntityRepositoryTest
 class MemberRepositoryTest(
+    private val databaseCleaner: DatabaseCleaner,
     private val memberRepository: MemberRepository
 ) : ExpectSpec({
     extension(SpringTestExtension(SpringTestLifecycleMode.Root))
+
+    beforeSpec {
+        databaseCleaner.execute()
+    }
 
     context("회원 조회") {
         val expectedMember = memberRepository.save(createMember())

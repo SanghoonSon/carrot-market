@@ -2,31 +2,37 @@ spring:
   config:
     activate:
       on-profile: "test"
+
   datasource:
-    url: jdbc:h2:~/carrot-market-test;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:p6spy:h2:~/carrot-market-test;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
-    driver-class-name: org.h2.Driver
+    #    driver-class-name: org.h2.Driver
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+
   jpa:
     open-in-view: false
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
     properties:
       hibernate:
-        format_sql: true
-        use_sql_comments: true
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
   h2:
     console:
       enabled: true
       path: /h2
 
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
 logging:
   level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+    p6spy: info

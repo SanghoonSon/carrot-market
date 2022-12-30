@@ -4,6 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/defaultLayout}"
       layout:fragment="content"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 >
 <head>
     <title>당근마켓 클론코딩</title>
@@ -14,6 +15,10 @@
     <section class="py-5 text-center container border-bottom">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
+<!--                <p th:text="${#authentication.name}"></p>-->
+                <p th:text="${#authentication}"></p>
+<!--                <p th:text="${#authentication.authenticated}"></p>-->
+
                 <h1 class="fw-light">우리 동네 중고 직거래 마켓</h1>
                 <p class="lead text-muted">동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.</p>
                 <p>
