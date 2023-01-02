@@ -1,3 +1,7 @@
 export const LOGIN = 'login'
+export const LOGOUT = 'logout'
+export const CLEAR_MEMBER = 'clearMember'
 export const JOIN_MEMBER = 'joinMember'
 export const FETCH_MEMBER = 'fetchMember'
+export const PUT_MEMBER = 'putMember'
+export const CHANGE_PASSWORD = 'changePassword'

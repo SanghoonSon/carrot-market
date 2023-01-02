@@ -14,7 +14,7 @@ import Header from '@/views/base/header/Header'
 import Footer from "@/views/base/footer/Footer";
 import Snackbar from "@/components/snackbars/Snackbar";
 import { mapActions } from "vuex";
-import { FETCH_MEMBER } from "@/store/shared/actionTypes";
+import { LOGOUT, FETCH_MEMBER } from "@/store/shared/actionTypes";
 
 export default {
   name: 'App',
@@ -29,9 +29,15 @@ export default {
       return
     }
     this.fetchMember()
+        .catch(error => {
+          if(error.response.status === 401) {
+            this.logout()
+            this.$router.replace(`/`)
+          }
+        })
   },
   methods: {
-    ...mapActions([FETCH_MEMBER])
+    ...mapActions([FETCH_MEMBER, LOGOUT])
   }
 }
 </script>

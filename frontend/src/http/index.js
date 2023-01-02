@@ -1,11 +1,15 @@
 import axios from 'axios'
-import store from "@/store";
+
+const not_authentication_urls = [
+  '/api/v1/auth/join',
+  '/api/v1/auth/login'
+]
 
 function init() {
   let http = axios.create({
     // baseURL: '[베이스 URL를 입력해주세요]', // 스프링 개발용
     withCredentials: true, // send cookies when cross-domain requests
-    timeout: 3000, // request timeout
+    timeout: 5000, // request timeout
     headers: {
       "Content-Type": "application/json",
     },
@@ -13,7 +17,7 @@ function init() {
 
   http.interceptors.request.use(config => {
     if (!config.headers) return config;
-    if (config.url === '/api/v1/auth/join') {
+    if (not_authentication_urls.includes(config.url)) {
       return config;
     }
 
