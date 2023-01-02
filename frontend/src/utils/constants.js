@@ -6,5 +6,8 @@ export const SNACKBAR_MESSAGES = {
   LOGIN: {
     SUCCESS: '로그인 되었습니다.',
     FAIL: '로그인에 실패하였습니다.'
+  },
+  MEMBER: {
+    NOT_MATCH_PASSWORD: '비밀번호가 일치하지 않습니다.'
   }
 }
