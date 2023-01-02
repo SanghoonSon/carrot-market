@@ -3,7 +3,10 @@ package com.carrot.market.auth.application
 import com.carrot.market.auth.infrastructure.JwtTokenProvider
 import com.carrot.market.auth.message.ERROR_ALREADY_REGISTERED_EMAIL
 import com.carrot.market.auth.message.ERROR_AUTHENTICATION_FAIL
-import com.carrot.market.fixture.*
+import com.carrot.market.fixture.DEFAULT_EMAIL
+import com.carrot.market.fixture.DEFAULT_NAME
+import com.carrot.market.fixture.DEFAULT_PASSWORD
+import com.carrot.market.fixture.createMember
 import com.carrot.market.member.domain.MemberRepository
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
@@ -11,31 +14,32 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldHaveMinLength
 import io.mockk.clearAllMocks
 import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.mockk
 import io.mockk.verify
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.crypto.password.PasswordEncoder
 
+val authenticationManager: AuthenticationManager = mockk()
+val passwordEncoder: PasswordEncoder = mockk()
+val jwtTokenProvider: JwtTokenProvider = mockk()
+val memberRepository: MemberRepository = mockk()
+
+@InjectMockKs
+val authenticateService = AuthenticateService(authenticationManager, passwordEncoder, jwtTokenProvider, memberRepository)
+
 internal class AuthenticateServiceTest : BehaviorSpec({
-    val authenticationManager = mockk<AuthenticationManager>()
-    val passwordEncoder = mockk<PasswordEncoder>()
-    val jwtTokenProvider = mockk<JwtTokenProvider>()
-    val memberRepository = mockk<MemberRepository>()
-    val authenticateService =
-        AuthenticateService(authenticationManager, passwordEncoder, jwtTokenProvider, memberRepository)
+
     val joinRequest = JoinMemberRequest(
         DEFAULT_NAME,
         DEFAULT_EMAIL,
-        DEFAULT_PASSWORD,
-        DEFAULT_STREET,
-        DEFAULT_CITY,
-        DEFAULT_ZIPCODE,
+        DEFAULT_PASSWORD
     )
 
     Given("신규 회원의 가입 요청이 주어진경우") {
-        val member = createMember();
-        every { memberRepository.save(any()) } returns member;
+        val member = createMember()
+        every { memberRepository.save(any()) } returns member
 
         When("신규 회원 등록시") {
             every { memberRepository.existsByEmail(any()) } returns false
@@ -53,7 +57,7 @@ internal class AuthenticateServiceTest : BehaviorSpec({
         }
 
         When("신규 회원 검증시 이메일이 중복됬을때") {
-            every { memberRepository.existsByEmail(any()) } returns true;
+            every { memberRepository.existsByEmail(any()) } returns true
             val exception = shouldThrow<IllegalArgumentException> {
                 authenticateService.joinMember(joinRequest)
             }

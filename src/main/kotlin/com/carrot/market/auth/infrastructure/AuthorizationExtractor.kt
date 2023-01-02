@@ -2,16 +2,16 @@ package com.carrot.market.auth.infrastructure
 
 import jakarta.servlet.http.HttpServletRequest
 
-private const val AUTHORIZATION = "Authorization"
-private const val BEARER_TYPE = "Bearer"
+const val AUTHORIZATION = "Authorization"
+const val BEARER_TYPE = "Bearer"
 
-fun extractAuthToken(request: HttpServletRequest): String {
+fun extractAuthToken(request: HttpServletRequest): String? {
     request.getHeaders(AUTHORIZATION).asIterator().forEach {
         if (isBearerType(it)) {
             return toAuthToken(it)
         }
     }
-    return ""
+    return null
 }
 
 private fun toAuthToken(authHeader: String): String {

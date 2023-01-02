@@ -1,6 +1,5 @@
 package com.carrot.market.auth.application
 
-import com.carrot.market.member.domain.Address
 import com.carrot.market.member.domain.Member
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotEmpty
@@ -26,17 +25,12 @@ data class JoinMemberRequest(
 
     @field:NotEmpty(message = "패스워드는 필수값입니다.")
     val password: String,
-
-    val street: String = "",
-    val city: String = "",
-    val zipcode: String = ""
 ) {
     fun toMember(passwordEncoder: PasswordEncoder): Member {
         return Member(
             name,
             email,
-            passwordEncoder.encode(password),
-            Address(street, city, zipcode)
+            passwordEncoder.encode(password)
         )
     }
 }

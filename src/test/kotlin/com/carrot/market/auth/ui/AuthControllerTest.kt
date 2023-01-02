@@ -13,14 +13,13 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.test.web.servlet.post
-import org.springframework.test.web.servlet.result.HeaderResultMatchersDsl
+
+private const val BASE_URL = "/api/v1/auth"
 
 @WebMvcTest(AuthController::class)
-class AuthRestControllerTest: RestControllerTest() {
+class AuthControllerTest: RestControllerTest() {
     @MockkBean
     private lateinit var authenticateService: AuthenticateService
-
-    private val BASE_URL = "/api/v1/auth"
 
     @Test
     @DisplayName("회원 가입 요청시 가입 후 생성 된 회원 아이디를 반환한다")
