@@ -55,6 +55,7 @@ class SecurityConfig {
             .and()
             .authorizeHttpRequests()
             .requestMatchers("/api/v1/auth/**").permitAll()
+//            .requestMatchers("/api/v1/**").permitAll()
             .anyRequest().authenticated()
 
         http.addFilter(corsConfig.corsFilter())
@@ -64,7 +65,7 @@ class SecurityConfig {
     }
 
     private fun jwtAuthenticationFilter(): JwtAuthenticationFilter {
-        return JwtAuthenticationFilter(jwtTokenProvider, memberRepository)
+        return JwtAuthenticationFilter(objectMapper, jwtTokenProvider, memberRepository)
     }
 }
 
